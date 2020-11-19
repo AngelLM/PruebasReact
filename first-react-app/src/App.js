@@ -18,9 +18,15 @@ function App() {
       <div className={classes.MainContainer}>
         <div className={classes.ProductPreview}>
           <img src="https://imgur.com/iOeUBV7.png" alt="Product Preview"/>
-          <div className={classes.TimeSection}>
+          {/* <div className={classes.TimeSection}>
             <p>{`${currentHour}:${currentMinute}`}</p>
+          </div> */}
+          <div className={classes.HeartBeatSection}>
+            <i class="fas fa-heartbeat"></i>
+            <p>68</p>
           </div>
+
+
         </div>
 
         <div className={classes.ProductData}>
