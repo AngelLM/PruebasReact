@@ -12,15 +12,15 @@ const Cita = ({item, eliminarPaciente}) => {
     return (
         <View style = {styles.cita}>
             <View>
-                <Text style = {styles.label}> Paciente: </Text>
+                <Text style = {styles.label}>Paciente:</Text>
                 <Text style={styles.texto}>{item.paciente}</Text>
             </View>
             <View>
-                <Text style = {styles.label}> Propietario: </Text>
+                <Text style = {styles.label}>Propietario:</Text>
                 <Text style={styles.texto}>{item.propietario}</Text>
             </View>
             <View>
-                <Text style = {styles.label}> Síntomas: </Text>
+                <Text style = {styles.label}>Síntomas:</Text>
                 <Text style={styles.texto}>{item.sintomas}</Text>
             </View>
 
@@ -40,19 +40,19 @@ const styles = StyleSheet.create({
         borderBottomColor: '#E1E1E1',
         borderStyle: 'solid',
         borderBottomWidth: 1,
-        paddingVertical: 20,
+        paddingVertical: 10,
         paddingHorizontal: 10
     },
     label: {
         fontWeight: 'bold',
-        fontSize: 16,
-        marginTop: 20
+        fontSize: 14,
+        marginTop: 5
     },
     texto:{
-        fontSize: 16,
+        fontSize: 14,
     },
     btnElimnar:{
-        padding: 10,
+        padding: 5,
         backgroundColor: 'red',
         marginVertical: 10
     },
