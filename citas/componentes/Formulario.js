@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, TextInput, Button, TouchableHighlight, Alert, S
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import shortid from 'shortid';
 
-const Formulario = ({citas, setCitas, guardarMostrarForm}) => {
+const Formulario = ({citas, setCitas, guardarMostrarForm, guardarCitasStorage}) => {
 
     const [paciente, guardarPaciente] = useState('');
     const [propietario, guardarPropietario] = useState('');
@@ -35,11 +35,11 @@ const Formulario = ({citas, setCitas, guardarMostrarForm}) => {
     };
 
     const hideTimePicker = () => {
-        setDateTimeVisibility(false);
+        setTimePickerVisibility(false);
     };
 
     const confirmarHora = (hora) => {
-        const opciones = { hour: '2-digit', minute: '2-digit'};
+        const opciones = { hour: '2-digit', minute: '2-digit', hour12: false};
         guardarHora(hora.toLocaleTimeString('es-ES', opciones));
         hideTimePicker();
     };
@@ -67,6 +67,9 @@ const Formulario = ({citas, setCitas, guardarMostrarForm}) => {
         // Agregar al state
         const citasNuevo = [...citas, cita];
         setCitas(citasNuevo);
+
+        // Pasar las nuevas citas a storage
+        guardarCitasStorage(JSON.stringify(citasNuevo));
 
         // Ocultar el formulario
         guardarMostrarForm(false);
