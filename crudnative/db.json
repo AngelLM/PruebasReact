@@ -1,3 +1,67 @@
 {
-    "clientes": []
+  "clientes": [
+    {
+      "nombre": "Juan HOLAAA",
+      "telefono": "9163445555hehehe",
+      "correo": "aaaadddddffffff",
+      "empresa": "adadadfffffffffffff",
+      "id": 2
+    },
+    {
+      "nombre": "Juan 3",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 3
+    },
+    {
+      "nombre": "Juan 4",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 4
+    },
+    {
+      "nombre": "Juan 5",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 5
+    },
+    {
+      "nombre": "Angelito",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 7
+    },
+    {
+      "nombre": "Juan 8",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 8
+    },
+    {
+      "nombre": "Juan 9",
+      "telefono": "9163445555",
+      "correo": "aaaa",
+      "empresa": "adadad",
+      "id": 9
+    },
+    {
+      "nombre": "Pedrito",
+      "telefono": "222",
+      "correo": "Ffff",
+      "empresa": "eeeeee",
+      "id": 11
+    },
+    {
+      "nombre": "Nuevo",
+      "telefono": "123456",
+      "correo": "ddddd",
+      "empresa": "ffffff",
+      "id": 12
+    }
+  ]
 }

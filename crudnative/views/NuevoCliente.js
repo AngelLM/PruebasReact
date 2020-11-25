@@ -1,11 +1,12 @@
-import Axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { TextInput, Headline, Button, Paragraph, Dialog, Portal } from 'react-native-paper';
 import globalStyles from '../styles/global';
 import axios from 'axios'
 
-const NuevoCliente = () => {
+const NuevoCliente = ({navigation, route}) => {
+
+    const { guardarConsultarAPI } = route.params;
 
     // campos formulario
     const [ nombre, guardarNombre ] = useState(''); 
@@ -13,6 +14,21 @@ const NuevoCliente = () => {
     const [ correo, guardarCorreo ] = useState(''); 
     const [ empresa, guardarEmpresa ] = useState(''); 
     const [ alerta, guardarAlerta ] = useState(false); 
+
+    // detectar si estamos editando o no
+    useEffect( () => {
+        if(route.params.cliente){
+            // guardarNombre(route.params.cliente.nombre);
+            // guardarTelefono(route.params.cliente.telefono);
+            // guardarCorreo(route.params.cliente.correo);
+            // guardarEmpresa(route.params.cliente.empresa);
+            const {nombre, telefono, correo, empresa} = route.params.cliente;
+            guardarNombre(nombre);
+            guardarTelefono(telefono);
+            guardarCorreo(correo);
+            guardarEmpresa(empresa);
+        }
+    }, []);
 
     // almacena el cliente en la DB
     const guardarCliente = async () => {
@@ -26,21 +42,44 @@ const NuevoCliente = () => {
         const cliente = { nombre, telefono, correo, empresa };
         console.log(cliente);
 
-        // guardar el cliente en la API
-        try {
-            if(Platform.OS == 'ios'){
-                await axios.post('http://10.0.2.2:3000/clientes', cliente);  // para iOS
-            } else {
-                axios.post('http://127.0.0.1:3000/clientes', cliente); // para Android
-            }
+        // Si estamos editando o creando un nuevo cliente
 
-        } catch (error) {
-            console.log(error);
+        if(route.params.cliente){
+            const { id } = route.params.cliente;
+            cliente.id = id;
+            const url = `http://36ffbd8651c9.ngrok.io/clientes/${id}`
+
+            try {
+                await axios.put(url, cliente);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            // guardar el cliente en la API
+            try {
+                if(Platform.OS == 'ios'){
+                    await axios.post('http://10.0.2.2:3000/clientes', cliente);  // para iOS
+                } else {
+                    axios.post('http://36ffbd8651c9.ngrok.io/clientes', cliente); // para Android
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         // redireccionar
+        navigation.navigate('Inicio');
 
         // limpiar el form (opcional)
+        guardarNombre('');
+        guardarTelefono('');
+        guardarCorreo('');
+        guardarEmpresa('');
+        guardarAlerta('');
+
+        // cambiar a true para traernos el nuevo cliente
+        guardarConsultarAPI(true);
     }
 
     return (
