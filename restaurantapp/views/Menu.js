@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { StyleSheet } from 'react-native';
-import FirebaseContext from '../context/firebase/firebaseContext';
+import { useNavigation } from '@react-navigation/native';
 import { 
     Container,
     Separator,
@@ -10,15 +10,23 @@ import {
     Thumbnail,
     Text,
     Body
- } from 'native-base';
- import globalStyles from '../styles/global';
+} from 'native-base';
+import globalStyles from '../styles/global';
 
+import FirebaseContext from '../context/firebase/firebaseContext';
+import PedidoContext from '../context/pedidos/pedidosContext';
 
 
 const Menu = () => {
 
     // Context de Firebase
     const { menu, obtenerProductos } = useContext(FirebaseContext);
+
+    // Context de Pedidos
+    const { seleccionarPlatillo } = useContext(PedidoContext);
+
+    // Hook para redireccionar
+    const navigation = useNavigation();
 
     useEffect(() => {
         obtenerProductos();
@@ -30,15 +38,15 @@ const Menu = () => {
 
             if(categoriaAnterior != categoria){
                 return(
-                    <Separator>
-                        <Text>{categoria}</Text>
-                    </Separator>
+                    <Separator style={styles.separador}>
+                        <Text style={styles.separadorTexto}>{categoria}</Text>
+                    </Separator> 
                 )
             }
         } else {
             return(
-                <Separator>
-                    <Text>{categoria}</Text>
+                <Separator style={styles.separador}>
+                    <Text style={styles.separadorTexto}>{categoria}</Text>
                 </Separator>
             )
         }
@@ -56,7 +64,15 @@ const Menu = () => {
                         return(
                             <Fragment key={id}>
                                 {mostrarHeading(categoria, i)}
-                                <ListItem>
+                                <ListItem
+                                    onPress={ () => {
+                                        // Eliminar algunas propiedades del platillo
+                                        const { existencia, ...platillo2 } = platillo; //la primera parte es la que se va a quitar, lo demás se quedará como platillo2
+
+                                        seleccionarPlatillo(platillo2);
+                                        navigation.navigate('DetallePlatillo');
+                                    }}
+                                >
                                     <Thumbnail large square source={{uri: imagen}} />
                                     <Body>
                                         <Text>{nombre}</Text>
@@ -77,5 +93,17 @@ const Menu = () => {
         </Container>
      );
 }
- 
+
+const styles = StyleSheet.create({
+    separador: {
+        backgroundColor: '#000',
+    },
+    separadorTexto:{
+        color: '#FFDA00',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        fontSize: 14
+    }
+})
+
 export default Menu;
