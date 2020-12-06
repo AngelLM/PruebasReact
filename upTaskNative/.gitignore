@@ -60,3 +60,7 @@ buck-out/
 
 #config files
 /config/apollo.js
+
+# Android key
+/android/app/uptask.keystore
+/android/gradle.properties
